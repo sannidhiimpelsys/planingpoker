@@ -3,11 +3,12 @@ runtime: nodejs12
 build:
   commands:
     build:
-      - npm install serve
-      - cd webapp
       - npm install
       - npm run build
+      - cd ./server
+      - npm install
+      - cd ~
 run:
-  command: serve -s webapp/build
+  command: node server/index.js
   network:
-    port: 3000
+    port: 80
