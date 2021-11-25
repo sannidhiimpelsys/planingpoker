@@ -30,6 +30,7 @@
     "start": "PORT=80 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "installServerDependencies": "cd ./server npm install",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
