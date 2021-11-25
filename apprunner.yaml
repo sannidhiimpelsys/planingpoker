@@ -1,0 +1,13 @@
+version: 1.0
+runtime: nodejs12
+build:
+  commands:
+    build:
+      - npm install -g serve
+      - cd webapp
+      - npm install
+      - npm run build
+run:
+  command: serve -s webapp/build
+  network:
+    port: 3000
