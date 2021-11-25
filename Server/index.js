@@ -1,10 +1,12 @@
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
 const { Server } = require('socket.io');
 const app = express();
 
 var roomUser = [];
 app.use(express.static(path.join(__dirname, '../build')));
+app.use(cors());
 const { addUser, removeUser, getUser, getUsersInRoom, addWorth, reset } = require('./users.js');
 //Listening Port
 const server = app.listen(80, () => {
