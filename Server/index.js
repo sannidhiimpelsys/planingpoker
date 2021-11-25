@@ -7,6 +7,10 @@ const app = express();
 var roomUser = [];
 app.use(express.static(path.join(__dirname, '../build')));
 app.use(cors());
+app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../build/index.html'));
+});
+
 const { addUser, removeUser, getUser, getUsersInRoom, addWorth, reset } = require('./users.js');
 //Listening Port
 const server = app.listen(80, () => {
