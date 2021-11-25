@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const { Server } = require('socket.io');
 const app = express();
-const router = require('./router');
+const router = require('./router.js');
 
 var roomUser = [];
 
