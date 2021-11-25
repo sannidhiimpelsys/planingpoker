@@ -7,7 +7,6 @@ build:
       - npm run build
       - cd Server
       - npm install
-      - cd ~
 run:
   command: node Server/index.js
   network:
