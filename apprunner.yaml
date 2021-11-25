@@ -5,7 +5,7 @@ build:
     build:
       - npm install
       - npm run build
-      - cd server
+      - cd Server
       - npm install
       - cd ~
 run:
