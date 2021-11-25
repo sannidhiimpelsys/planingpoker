@@ -9,6 +9,6 @@ build:
       - npm install
       - cd ~
 run:
-  command: node server/index.js
+  command: node Server/index.js
   network:
     port: 80
