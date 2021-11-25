@@ -1,17 +1,16 @@
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const { Server } = require('socket.io');
 const app = express();
-const router = require('./router.js');
 
 var roomUser = [];
-
+app.use(express.static(path.join(__dirname, '../build')));
 app.use(cors());
-app.use(router);
 const { addUser, removeUser, getUser, getUsersInRoom, addWorth, reset } = require('./users.js');
 //Listening Port
-const server = app.listen(3001, () => {
-    console.log("server started at port 3001 ");
+const server = app.listen(80, () => {
+    console.log("server started at port 80 ");
 })
 
 const io = new Server(server, {
