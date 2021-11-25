@@ -3,7 +3,7 @@ runtime: nodejs12
 build:
   commands:
     build:
-      - npm install -g serve
+      - npm install serve
       - cd webapp
       - npm install
       - npm run build
