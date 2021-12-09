@@ -45,7 +45,7 @@ const Poker = () => {
   const [onBlur, setOnBlur] = useState(true);
   var [noName, setNoName] = useState(false);
   var [flags, noflags] = useState(0);
-
+  const [coffeeon, setCoffeeOn] = useState(false);
 
   const [valuelist, setValuelist] = useState([]);
 
@@ -79,6 +79,7 @@ const Poker = () => {
   //Chat
 
   useEffect(() => {
+    if(!coffeeon){
     socket.on("message", (message) => {
       setMessages((messages) => [...messages, message]);
     });
@@ -89,12 +90,14 @@ const Poker = () => {
 
     socket.on("receive", (data) => { });
 
-
+  }
   }, []);
 
   //cards
   useEffect(() => {
+    if(!coffeeon){
     addCards();
+    }
   }, []);
 
   useEffect(() => {
@@ -120,7 +123,9 @@ const Poker = () => {
 
   const goback = () => {
     console.log("Reset");
+    if(!coffeeon){
     socket.emit("preach", "reset");
+    }
   };
   const addCards = () => {
     let count = cardVales.length;
@@ -144,10 +149,11 @@ const Poker = () => {
 
   const sendMessage = (event) => {
     event.preventDefault();
-
+    if(!coffeeon){
     if (message) {
       socket.emit("sendMessage", message, () => setMessage(""));
     }
+  }
   };
   //Name Functions
   function handleFlag(e) {
@@ -165,13 +171,13 @@ const Poker = () => {
     if (flags === 0) {
 
       socket.disconnect()
-
+      setCoffeeOn(true)
       console.log("disconnect")
 
       noflags(1)
     }
     else {
-
+      setCoffeeOn(false)
       socket.emit("join", { name, room, cardVale }, (error) => {
         // if (error) {
         //   alert(error);
@@ -234,28 +240,31 @@ const Poker = () => {
     return (<RemoveLog />);
   }
   const showUsers = () => {
-
+    if(!coffeeon){
     socket.emit('getusers', { name, room }, (error) => {
       // if(error) {
       //   alert(error);
       // }
     });
-
+  }
   }
   const [linkChange, setLinkChange] = useState('');
   const [showLinks, setShowLinks] = useState(true);
   const [showJira, setShowJira] = useState(true);
   const sendJira = (event) => {
     event.preventDefault();
-
+    if(!coffeeon){
     if (linkChange) {
       socket.emit("jira", linkChange)
     }
   }
+  }
   useEffect(() => {
+    if(!coffeeon){
     socket.on("jira", (data) => {
       setLinkChange(data);
     })
+  }
   }, [socket])
 
   return (
@@ -314,7 +323,7 @@ const Poker = () => {
           </div>
         </div>
         <div className="storyDes ">
-          <StoryDescription socket={socket} />
+          <StoryDescription socket={socket} coffeeon={coffeeon}/>
         </div>
         <div className={flags === 1 ? "disconnect" : "connect"}>
           <Cofee onClick={() => cafe()} />
@@ -329,7 +338,7 @@ const Poker = () => {
                   key={value}
                   index={index}
                   value={value}
-                  onClick={() => { removeCard(value); showUsers() }}
+                  onClick={() => { if(!coffeeon){removeCard(value); showUsers()} }}
                 />
               ))
               }
@@ -347,6 +356,7 @@ const Poker = () => {
               users={users}
               valuelist={valuelist}
               setValuelist={setValuelist}
+              coffeeon={coffeeon}
             />
           )}
 
