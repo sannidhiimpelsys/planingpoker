@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+
 // Cards
 import Card1 from '../assets/Cards/Horizontal/Group 7094.svg'
 import Card2 from '../assets/Cards/Horizontal/Group 9379.svg'
@@ -12,7 +13,7 @@ import Card8 from '../assets/Cards/Vertical/Group 28237.svg'
 import Card9 from '../assets/Cards/Vertical/Group 7422.svg' 
 import Card10 from '../assets/Cards/Vertical/Group 21173.svg'
 import React, { useEffect, useState } from 'react'
-import { Link } from "react-router-dom"
+import { Link,useHistory } from "react-router-dom"
 
 // import $ from 'jquery';
 import CreatableSelect from "react-select/creatable";
@@ -21,6 +22,7 @@ import CreatableSelect from "react-select/creatable";
 import planningTitle from '../assets/Title/Group 58173.svg' 
 import '../Components/content.css'
 
+
 const options = [
    
    { value: ["0","1","2","3","5","7","13","?"], label: "Fibb [0,1,2,3,5,7,13,?]" },
@@ -28,9 +30,12 @@ const options = [
   
  ];
 const  Content= () => {
+      const history=useHistory()
       const [name, setName] = useState('');
       const [room, setRoom] = useState('');
       const [cardVal, setCardVal] = useState('');
+      const [errors, setErrors] = useState('');
+      const [formErrors, setFormErrors] = useState({});
       
     const [patternValue, setPatternValue] = useState()
     const handleChange = (field, value) => {
@@ -53,7 +58,36 @@ const  Content= () => {
           break
       }
     }
+
+    const userSubmit=(event)=>{
+      event.preventDefault()
+      setErrors("")
+     if(!name || !room || !cardVal )
+        setErrors("* Please Enter all the field" )
+     else
+        history.push(`/poker?name=${name}&room=${room}&cardVale=${cardVal}`)
+     
+   }
+   
+   const validate = (e) => {
+      e.preventDefault()
+      const errors = {};
+      if (!name) {
+        errors.name = "*User_Name is required!";
+      }
+      if (!room) {
+        errors.room = "*Room_Name is required!";
+      }
+      if (!cardVal) {
+        errors.cardval = "*Select the options!";
+      }
+     setFormErrors(errors);
+    };
+
     const handleClick =( value) =>{    
+       if(!value){
+          alert("Required!!");
+       }
            setPatternValue(value);
            setTimeout(() => {
             console.log(patternValue);
@@ -61,21 +95,32 @@ const  Content= () => {
          }, 2000);
            
        }
+
+       const add =( name,room,value) =>{    
+        if(!name && !room && !value){
+           alert(" Enter all the required values")
+        }
+
+
+        
+       
+         
+     }
        const customStyles = {
          
           container: provided => ({
             ...provided,
-            '&:focus': { outline: 2+'px solid #E17509 !important',  boxShadow: '0 0 4px 4px #E17509 !important'},
+            '&:focus': { outline: 2+'px solid #E17509 !important',  boxShadow: '0 0 4px 4px #dd8f40 !important'},
             width: 100+'%',
             display:'flex'
           }),
           control: (provided,state) => ({
             ...provided,
-            '&:focus': { border: 2+'px solid #E17509 !important', outline: 2+'px solid #E17509 !important',  boxShadow: '0 0 4px 4px #E17509 !important'},
+            '&:focus': {  border: 2+'px solid #E17509 !important', outline: 2+'px solid #E17509 !important',  boxShadow: '0 0 4px 4px #dd8f40 !important'},
             width: 100+'%',
             height:40+'px',
-            border: state.isFocused && 2+'px solid #E17509 !important',
-            boxShadow: state.isFocused && '0 0 4px 4px #E17509 !important'
+            border: state.isFocused && 1+'px solid #E17509 !important',
+            boxShadow: state.isFocused && '0 0 3px 3px #E17509 !important'
           }),
           singleValue: provided => ({
             ...provided,
@@ -85,7 +130,7 @@ const  Content= () => {
           }),
           valueContainer: provided => ({
             ...provided,
-            
+         
             padding:0+'px',
             height:40+'px important'
           }),
@@ -109,8 +154,11 @@ const  Content= () => {
             color:'#495057ad'
           })
        }
-    return (
+
+
        
+    return (
+         
          <div className="content" id ="contents"> 
                <div className="title ">
                   <div className="postioning">
@@ -131,14 +179,19 @@ const  Content= () => {
                      <img src={Card8} className="cardV" alt=""  />
                   </div>
                   <div id='loginDivBlock' className="Login">
-                     <form className="d-flex flex-column p-2" action="form.html" method="post" >
+                     <form className="d-flex flex-column p-2" name="myForm" action="form.html" method="post" >
                         <p aria-label="Create a room" id = "loginHead"> CREATE/JOIN </p>
-                         <input className="Input1 form-control" type="text" aria-label="Enter User ID" placeholder="User ID" name="uname" required onChange={(event) =>setName(event.target.value)}/>
+                        
+                      <input className="Input1 form-control" type="text"  aria-label="Enter User ID"   placeholder="User Name" name="uname" required  onChange={(event) =>setName(event.target.value)}/>
+                      <p className='formerror'>{formErrors.name}</p>
+
                         <input className="Input2 form-control"type="text" aria-label="Enter Room ID" placeholder="Room ID" name="roomid" required onChange={(event) =>setRoom(event.target.value)}/>
+                        <p className='formerror'>{formErrors.room}</p>
 
                         <label htmlFor="react-select-3-input" className="sr-only">Select your Pattern</label>
                         <div className="selectCreate" >
-                              <CreatableSelect 
+                              <CreatableSelect
+                              required
                               styles={customStyles}
                               isClearable
                               onChange={(value) => handleChange('roles', value)}
@@ -148,10 +201,12 @@ const  Content= () => {
                                  handleClick(event.target.value); event.preventDefault()}}   
                                  />
                            </div>
-                       
+                           <p id='formerror'>{formErrors.cardval}</p>
+                           <p className="errstyle">{errors}</p>
                       
-                        <Link className="atag" onClick={e => (!name || !room) ? e.preventDefault() : null} to={`/poker?name=${name}&room=${room}&cardVale=${cardVal}`}>
-                        <button type="submit" className="loginButton" aria-label="Submit">Enter</button>
+                        <Link className="atag" onClick={e => (!name || !room || !cardVal) ?  validate(e): null } to={`/poker?name=${name}&room=${room}&cardVale=${cardVal}`}>
+                       <button type="submit" className="loginButton" aria-label="Submit" >Enter</button>
+
                         </Link>
                      </form>
                     
