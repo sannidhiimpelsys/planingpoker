@@ -301,7 +301,7 @@ useEffect(()=>{
           <div className="Jira-outer-link">
           <div className={showLinks ? "Jira-link": "dispnone"}>
             <p className={showJira ?"Jira-text":"dispnone" }>Jira Link </p>
-            <a className="Jira-text" href={""+linkChange} target="_blank" rel="noopener noreferrer">
+            <a className="Jira-text" role="link" aria-label="Jira Link" href={""+linkChange} target="_blank" rel="noopener noreferrer">
      
               <p className="LinkChange">{linkChange}</p>
               </a>

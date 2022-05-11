@@ -235,7 +235,8 @@ div.selectCreate:focus{
  justify-content: center;
  align-items: center;
  /* padding: auto; */
- height: 40px !important;
+ /* height: 40px !important; */
+ height: 40px;
  display: flex;
  padding: 0 !important;
  margin: 0;

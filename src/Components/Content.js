@@ -8,10 +8,10 @@ import Card4 from '../assets/Cards/Horizontal/Group18155.svg'
 import Card5 from '../assets/Cards/Horizontal/Group14790.svg' 
 import Card6 from '../assets/Cards/Horizontal/Group58162.svg'
 
-import Card7 from '../assets/Cards/Vertical/Group 31141.svg'
-import Card8 from '../assets/Cards/Vertical/Group 28237.svg'
-import Card9 from '../assets/Cards/Vertical/Group 7422.svg' 
-import Card10 from '../assets/Cards/Vertical/Group 21173.svg'
+import Card7 from '../assets/Cards/Vertical/Group31141.svg'
+import Card8 from '../assets/Cards/Vertical/Group28237.svg'
+import Card9 from '../assets/Cards/Vertical/Group7422.svg' 
+import Card10 from '../assets/Cards/Vertical/Group21173.svg'
 import React, { useEffect, useState } from 'react'
 import { Link,useHistory } from "react-router-dom"
 
@@ -19,7 +19,7 @@ import { Link,useHistory } from "react-router-dom"
 import CreatableSelect from "react-select/creatable";
 // Title
 
-import planningTitle from '../assets/Title/Group 58173.svg' 
+import planningTitle from '../assets/Title/Group58173.svg' 
 import '../Components/content.css'
 
 
