@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
 
 // Cards
-import Card1 from '../assets/Cards/Horizontal/Group 7094.svg'
-import Card2 from '../assets/Cards/Horizontal/Group 9379.svg'
-import Card3 from '../assets/Cards/Horizontal/Group 9006.svg'
-import Card4 from '../assets/Cards/Horizontal/Group 18155.svg'
-import Card5 from '../assets/Cards/Horizontal/Group 14790.svg' 
-import Card6 from '../assets/Cards/Horizontal/Group 58162.svg'
+import Card1 from '../assets/Cards/Horizontal/Group7094.svg'
+import Card2 from '../assets/Cards/Horizontal/Group9379.svg'
+import Card3 from '../assets/Cards/Horizontal/Group9006.svg'
+import Card4 from '../assets/Cards/Horizontal/Group18155.svg'
+import Card5 from '../assets/Cards/Horizontal/Group14790.svg' 
+import Card6 from '../assets/Cards/Horizontal/Group58162.svg'
 
 import Card7 from '../assets/Cards/Vertical/Group 31141.svg'
 import Card8 from '../assets/Cards/Vertical/Group 28237.svg'
@@ -36,6 +36,7 @@ const  Content= () => {
       const [cardVal, setCardVal] = useState('');
       const [errors, setErrors] = useState('');
       const [formErrors, setFormErrors] = useState({});
+      
       
     const [patternValue, setPatternValue] = useState()
     const handleChange = (field, value) => {
@@ -73,10 +74,11 @@ const  Content= () => {
       e.preventDefault()
       const errors = {};
       if (!name) {
-        errors.name = "*User_Name is required!";
+      
+        errors.name = "*User Name is required!";
       }
       if (!room) {
-        errors.room = "*Room_Name is required!";
+        errors.room = "*Room ID is required!";
       }
       if (!cardVal) {
         errors.cardval = "*Select the options!";
@@ -168,7 +170,7 @@ const  Content= () => {
                </div>
                {/* Cards here */}
                <div className="cards ">
-                  <div id="cardHorizontal " className="CardH cardT">
+                  <div id="cardHorizontal" className="CardH cardT">
                      <img src={Card1} alt="" />
                      <img src={Card2}  alt=""  />
                      <img src={Card3}  alt="" />  
@@ -216,7 +218,7 @@ const  Content= () => {
                      <img src={Card10} className="cardV" alt=""  />
                   </div>
                   </div>
-                  <div id="cardHorizontal " className="CardH cardB">
+                  <div id="cardHorizontal" className="CardH cardB">
                      <img src={Card4} alt=""   />
                      <img src={Card5} alt="" />
                      <img src={Card6} alt=""  />  
