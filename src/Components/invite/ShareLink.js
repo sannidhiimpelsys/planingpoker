@@ -40,10 +40,12 @@ function ShareLink() {
       <label htmlFor="popup-2" className="sr-only">ShareLink</label>
         <Popup aria-label="Copied"
           trigger={<button className="btn invitebutton" id="popup-2"> Invite Link</button>}>     
-      <CopyToClipboard aria-hidden="true" text={k} onCopy={() => setCopied(true)}>
-            <textarea className="pop" value={k} readOnly></textarea>
-      </CopyToClipboard>
-      {copied ? <span className="copyText" style={{color: 'red'}}>Copied.</span> : null}
+            <div className="popc">
+              <textarea className="pop" style={{fontSize: '11px', fontWeight: 'bold', padding: '5px'}} value={k} readOnly></textarea>
+              <CopyToClipboard aria-hidden="true" text={k} onCopy={() => setCopied(true)}>
+                {copied ? <span className="copyText" style={{color: '#c10e21', fontWeight: 'bold'}}><i class="fa fa-clipboard" id="tag"></i></span> : <span className="copyText" style={{color: '#c10e21', fontWeight: 'bold'}}><i class="fa fa-clipboard" id="tag"></i></span>}
+              </CopyToClipboard>
+            </div>
         </Popup>
     </div>
   );

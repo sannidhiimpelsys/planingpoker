@@ -244,11 +244,16 @@ div.selectCreate:focus{
 }
 
 .errstyle{
- color: red;
+ /* color: red;
  align-self: center;
  justify-content: center;
  align-items: center;
- font-size: 13px;
+ font-size: 13px; */
+
+ color: red;
+ margin-top: -15px;
+  font-size: 13px;
+ padding-left: 20px;
 }
 
 .formerror{

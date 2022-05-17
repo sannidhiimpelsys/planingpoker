@@ -12,7 +12,7 @@ import Card7 from '../assets/Cards/Vertical/Group31141.svg'
 import Card8 from '../assets/Cards/Vertical/Group28237.svg'
 import Card9 from '../assets/Cards/Vertical/Group7422.svg' 
 import Card10 from '../assets/Cards/Vertical/Group21173.svg'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useRef } from 'react'
 import { Link,useHistory } from "react-router-dom"
 
 // import $ from 'jquery';
@@ -37,6 +37,8 @@ const  Content= () => {
       const [errors, setErrors] = useState('');
       const [formErrors, setFormErrors] = useState({});
       
+      const [focus,setfocus] =useState(false);
+      
       
     const [patternValue, setPatternValue] = useState()
     const handleChange = (field, value) => {
@@ -60,31 +62,36 @@ const  Content= () => {
       }
     }
 
+
+
     const userSubmit=(event)=>{
       event.preventDefault()
       setErrors("")
-     if(!name || !room || !cardVal )
-        setErrors("* Please Enter all the field" )
+     if( !cardVal )
+        setErrors("*Select the options!" )
      else
         history.push(`/poker?name=${name}&room=${room}&cardVale=${cardVal}`)
      
    }
    
-   const validate = (e) => {
-      e.preventDefault()
-      const errors = {};
-      if (!name) {
-      
-        errors.name = "*User Name is required!";
-      }
-      if (!room) {
-        errors.room = "*Room ID is required!";
-      }
-      if (!cardVal) {
-        errors.cardval = "*Select the options!";
-      }
-     setFormErrors(errors);
-    };
+  //  const validate = (e) => {
+  //     e.preventDefault()
+  //     const errors = {};
+  //     if (!name) {
+        
+  //       errors.name = "*User Name is required!";
+  //       setfocus(true);
+  //     }
+  //     if (!room) {
+  //       errors.room = "*Room ID is required!";
+  //       setfocus(true);
+  //     }
+  //     if (!cardVal) {
+  //       errors.cardval = "*Select the options!";
+  //       setfocus(true);
+  //     }
+  //    setFormErrors(errors);
+  //   };
 
     const handleClick =( value) =>{    
        if(!value){
@@ -98,16 +105,7 @@ const  Content= () => {
            
        }
 
-       const add =( name,room,value) =>{    
-        if(!name && !room && !value){
-           alert(" Enter all the required values")
-        }
-
-
-        
-       
-         
-     }
+      
        const customStyles = {
          
           container: provided => ({
@@ -181,7 +179,7 @@ const  Content= () => {
                      <img src={Card8} className="cardV" alt=""  />
                   </div>
                   <div id='loginDivBlock' className="Login">
-                     <form className="d-flex flex-column p-2" name="myForm" action="form.html" method="post" >
+                     <form className="d-flex flex-column p-2" name="myForm" action="form.html" method="post" onSubmit={e => {userSubmit(e)}} >
                         <p aria-label="Create a room" id = "loginHead"> CREATE/JOIN </p>
                         
                       <input className="Input1 form-control" type="text"  aria-label="Enter User ID"   placeholder="User Name" name="uname" required  onChange={(event) =>setName(event.target.value)}/>
@@ -190,26 +188,47 @@ const  Content= () => {
                         <input className="Input2 form-control"type="text" aria-label="Enter Room ID" placeholder="Room ID" name="roomid" required onChange={(event) =>setRoom(event.target.value)}/>
                         <p className='formerror'>{formErrors.room}</p>
 
+                        {/* <input
+        type="text"
+        id="number-input-field"
+        inputMode="decimal"
+        onBlur={handleBlur}
+        onChange={handleChanges}
+        onFocus={handleFocus}
+        pattern="[0-9]+[A-Za-z]"
+        ref={ref}
+        style={style(error)}
+        value={userInput}
+      />
+      {showErrorText && (
+        <p role="alert" style={{ color: "rgb(255, 0, 0)" }}>
+          Please make sure you've entered a <em>number</em>
+        </p>
+      )}
+<br/> */}
                         <label htmlFor="react-select-3-input" className="sr-only">Select your Pattern</label>
                         <div className="selectCreate" >
                               <CreatableSelect
-                              required
+                           
+                             
                               styles={customStyles}
                               isClearable
                               onChange={(value) => handleChange('roles', value)}
                               value={patternValue}
                               options={options}
+                              isFocused={focus}
                               onClick={(event) => {
-                                 handleClick(event.target.value); event.preventDefault()}}   
+                                 handleClick(event.target.value); 
+                                 event.preventDefault()}}   
                                  />
                            </div>
                            <p id='formerror'>{formErrors.cardval}</p>
                            <p className="errstyle">{errors}</p>
-                      
-                        <Link className="atag" onClick={e => (!name || !room || !cardVal) ?  validate(e): null } to={`/poker?name=${name}&room=${room}&cardVale=${cardVal}`}>
-                       <button type="submit" className="loginButton" aria-label="Submit" >Enter</button>
-
-                        </Link>
+                           <button type="submit" className="loginButton" aria-label="Submit" >Enter</button>
+                        {/* <Link className="atag" onClick={e => (!name || !room || !cardVal) ?  validate(e): null } to={`/poker?name=${name}&room=${room}&cardVale=${cardVal}`}>
+                     
+                        
+                        </Link> */}
                      </form>
                     
                   </div>

@@ -32,6 +32,8 @@ const Poker = () => {
   const [users, setUsers] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
+  // TODO: Change by ayush
+  const [isDescription, setIsDescription] = useState(true);
 
   const [hand, setHand] = useState([]);
   const [hand2, setHand2] = useState([]);
@@ -245,6 +247,7 @@ const showUsers = () =>{
 const [linkChange, setLinkChange] = useState('');
 const [showLinks, setShowLinks] = useState(true);
 const [showJira, setShowJira] = useState(true);
+const [isJira, setIsJira] = useState(true);
 const sendJira = (event) =>{
   event.preventDefault();
   
@@ -257,6 +260,14 @@ useEffect(()=>{
       setLinkChange(data);
   })
 },[socket])
+useEffect(()=>{
+  console.log(linkChange);
+  if(linkChange.length){
+    setIsJira(false);
+  }else{
+    setIsJira(true);
+  }
+},[linkChange])
 
   return (
     <div
@@ -301,7 +312,7 @@ useEffect(()=>{
           <div className="Jira-outer-link">
           <div className={showLinks ? "Jira-link": "dispnone"}>
             <p className={showJira ?"Jira-text":"dispnone" }>Jira Link </p>
-            <a className="Jira-text" role="link" aria-label="Jira Link" href={""+linkChange} target="_blank" rel="noopener noreferrer">
+            <a className="Jira-text" href={""+linkChange} target="_blank" rel="noopener noreferrer">
      
               <p className="LinkChange">{linkChange}</p>
               </a>
@@ -314,7 +325,8 @@ useEffect(()=>{
             </div>
         </div>
       <div className="storyDes ">
-        <StoryDescription socket={socket} />
+      
+        <StoryDescription socket={socket} setIsDescription={setIsDescription} />
       </div>
       <div className={flags===1 ? "disconnect" : "connect"}>
         <Cofee onClick={() =>cafe()}/>
@@ -329,6 +341,9 @@ useEffect(()=>{
                 key={value}
                 index={index}
                 value={value}
+                // TODO: Change by ayush
+                isDescription={isDescription}
+                isJira={isJira}
                 onClick={() => {removeCard(value);showUsers()}}
               />
             ))
