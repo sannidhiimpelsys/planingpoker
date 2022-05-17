@@ -36,11 +36,9 @@ const  Content= () => {
       const [cardVal, setCardVal] = useState('');
       const [errors, setErrors] = useState('');
       const [formErrors, setFormErrors] = useState({});
+      const [focus,setfocus] =useState(false); 
+      const [patternValue, setPatternValue] = useState()
       
-      const [focus,setfocus] =useState(false);
-      
-      
-    const [patternValue, setPatternValue] = useState()
     const handleChange = (field, value) => {
       switch (field) {
         case 'roles':
