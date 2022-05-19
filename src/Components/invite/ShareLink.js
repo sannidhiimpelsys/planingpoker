@@ -36,16 +36,25 @@ function ShareLink() {
   };*/
  
   return (
-    <div className="Share">
-      <label htmlFor="popup-2" className="sr-only">ShareLink</label>
-        <Popup aria-label="Copied"
-          trigger={<button className="btn invitebutton" id="popup-2"> Invite Link</button>}>     
-      <CopyToClipboard aria-hidden="true" text={k} onCopy={() => setCopied(true)}>
-            <textarea className="pop" value={k} readOnly></textarea>
-      </CopyToClipboard>
-      {copied ? <span className="copyText" style={{color: 'red'}}>Copied.</span> : null}
-        </Popup>
-    </div>
+    <div className="Share" onBlur={() => setCopied(false)}>
+    <label htmlFor="popup-2" className="sr-only">ShareLink</label>
+      <Popup aria-label="Copied"
+        trigger={<button className="btn invitebutton" id="popup-2"> Invite Link</button>}>     
+          <div className="popc">
+            <textarea className="pop" style={{fontSize: '11px', fontWeight: 'bold', padding: '5px'}} value={k} readOnly></textarea>
+            <CopyToClipboard aria-hidden="true" text={k} onCopy={() => setCopied(true)}>
+              
+              <span className="copyText" style={{color: '#c10e21', fontWeight: 'bold'}}><i class="fa fa-clipboard" id="tag"></i></span>
+
+            </CopyToClipboard>
+          </div>
+          {copied ?
+          <div className="copied" style={{color: '#c10e21', fontWeight: 'bold', fontSize: '12px', paddingTop: '5px', paddingLeft: '2px'}}>
+              Copied to Clipboard
+          </div>
+          : ''}
+      </Popup>
+  </div>
   );
 }
 

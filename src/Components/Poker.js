@@ -17,7 +17,12 @@ import UsersInRoom from "./UsersInRoom";
 import Cofee from "./Cofee";
 import $ from 'jquery';
 
+<<<<<<< Updated upstream
 const socket = io.connect(location.origin);
+=======
+const socket = io.connect("http://localhost:3001");
+ //const socket = io.connect(location.origin);
+>>>>>>> Stashed changes
 var chooseTime = 0;
 
 var series = "";
@@ -32,6 +37,8 @@ const Poker = () => {
   const [users, setUsers] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
+  // TODO: Change by ayush
+  const [isDescription, setIsDescription] = useState(true);
 
   const [hand, setHand] = useState([]);
   const [hand2, setHand2] = useState([]);
@@ -258,14 +265,48 @@ const Poker = () => {
       socket.emit("jira", linkChange)
     }
   }
+<<<<<<< Updated upstream
+=======
+const showUsers = () =>{
+  
+  socket.emit('getusers', { name, room }, (error) => {
+    // if(error) {
+    //   alert(error);
+    // }
+  });
+
+}
+const [linkChange, setLinkChange] = useState('');
+const [showLinks, setShowLinks] = useState(true);
+const [showJira, setShowJira] = useState(true);
+const [isJira, setIsJira] = useState(true);
+const sendJira = (event) =>{
+  event.preventDefault();
+  
+  if(linkChange){
+      socket.emit("jira",linkChange)
+>>>>>>> Stashed changes
   }
   useEffect(() => {
     if(!coffeeon){
     socket.on("jira", (data) => {
       setLinkChange(data);
+<<<<<<< Updated upstream
     })
   }
   }, [socket])
+=======
+  })
+},[socket])
+useEffect(()=>{
+  console.log(linkChange);
+  if(linkChange.length){
+    setIsJira(false);
+  }else{
+    setIsJira(true);
+  }
+},[linkChange])
+>>>>>>> Stashed changes
 
   return (
     <div
@@ -322,17 +363,28 @@ const Poker = () => {
             <button className="btn Jira-button" onClick={(event) => { setShowLinks(true); setShowJira(false); sendJira(event) }}>Enter</button>
           </div>
         </div>
+<<<<<<< Updated upstream
         <div className="storyDes ">
           <StoryDescription socket={socket} coffeeon={coffeeon}/>
         </div>
         <div className={flags === 1 ? "disconnect" : "connect"}>
           <Cofee onClick={() => cafe()} />
         </div>
+=======
+      <div className="storyDes ">
+      
+        <StoryDescription socket={socket} setIsDescription={setIsDescription} />
+      </div>
+      <div className={flags===1 ? "disconnect" : "connect"}>
+        <Cofee onClick={() =>cafe()}/>
+      </div>
+>>>>>>> Stashed changes
 
         {flag !== 1 ? (
           <div className="Cards">
             <div className="cardK" role="group" aria-labelledby="cardgroup">
               <label id="cardgroup" className="sr-only">Pointer stories</label>
+<<<<<<< Updated upstream
               {hand.map((value, index) => (
                 <Card
                   key={value}
@@ -345,6 +397,23 @@ const Poker = () => {
             </div>
           </div>
         )
+=======
+            {hand.map((value, index) => (
+              <Card
+                key={value}
+                index={index}
+                value={value}
+                // TODO: Change by ayush
+                isDescription={isDescription}
+                isJira={isJira}
+                onClick={() => {removeCard(value);showUsers()}}
+              />
+            ))
+            }
+          </div>  
+      </div>
+          )
+>>>>>>> Stashed changes
           :
           (
             <Table
